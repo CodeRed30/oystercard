@@ -4,7 +4,7 @@ describe OysterCard do
 
   let(:entry_station) {double :station}
   let(:exit_station) {double :station}
-  let(:journey) {{:entry_station => entry_station, :exit_station => exit_station}}
+  let(:journey) {{ :entry_station => entry_station, :exit_station => exit_station }}
 
   describe "#balance" do
 

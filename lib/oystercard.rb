@@ -11,7 +11,7 @@ class OysterCard
   end
 
   def top_up(amount)
-    fail "Unable to top up as it would exceed balance limit (£#{MAXIMUM_BALANCE})" if exceed_limit?(amount)
+    fail "Unable to top up as it would exceed balance limit (£#{ MAXIMUM_BALANCE })" if exceed_limit?(amount)
     add_amount(amount)
   end
 
@@ -23,9 +23,9 @@ class OysterCard
   end
 
   def touch_out(station)
-    set_not_in_use
     deduct(MINIMUM_BALANCE)
     exited_at(station)
+    set_not_in_use
     complete_journey
   end
 
@@ -37,6 +37,10 @@ class OysterCard
 
   attr_writer :balance, :entry_station, :exit_station
   attr_accessor :in_use
+
+  def add_amount(amount)
+    self.balance += amount
+  end
 
   def deduct(amount)
     self.balance -= amount
@@ -50,14 +54,6 @@ class OysterCard
     (self.balance + amount) > MAXIMUM_BALANCE
   end
 
-  def complete_journey
-    @journey_history << @journey
-  end
-
-  def add_amount(amount)
-    self.balance += amount
-  end
-
   def start_journey
     @journey = Hash.new
   end
@@ -68,6 +64,10 @@ class OysterCard
 
   def exited_at(station)
     @journey[:exit_station] = station
+  end
+
+  def complete_journey
+    @journey_history << @journey
   end
 
   def set_in_use
