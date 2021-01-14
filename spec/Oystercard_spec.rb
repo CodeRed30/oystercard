@@ -64,7 +64,7 @@ describe OysterCard do
     it "remembers the entry station" do
       subject.top_up(OysterCard::MINIMUM_BALANCE)
       subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq(entry_station)
+      expect(subject.journey[:entry_station]).to eq(entry_station)
     end
   end
 
@@ -88,17 +88,17 @@ describe OysterCard do
     end
   end
 
-  describe "#journeys" do
+  describe "#journey_history" do
 
-    it "checks if journeys is empty" do
-      expect(subject.journeys).to be_empty
+    it "checks if journey_history is empty" do
+      expect(subject.journey_history).to be_empty
     end
 
-    it "records journeys" do
+    it "records journey_history" do
       subject.top_up(10)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journeys).to include journey
+      expect(subject.journey_history).to include journey
     end
 
   end
