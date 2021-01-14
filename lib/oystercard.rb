@@ -24,10 +24,10 @@ class OysterCard
   end
 
   def touch_out(station)
-    deduct(MINIMUM_BALANCE)
-    exited_at(station)
     set_not_in_use
+    @journey.exited_at(station)
     complete_journey
+    deduct(MINIMUM_BALANCE)
   end
 
   def in_journey?
@@ -57,14 +57,6 @@ class OysterCard
 
   def start_journey
     @journey = Journey.new
-  end
-
-  # def entered_at(station)
-  #   @journey.route[:entry_station] = station
-  # end
-
-  def exited_at(station)
-    @journey.route[:exit_station] = station
   end
 
   def complete_journey

@@ -25,8 +25,6 @@ describe OysterCard do
     end
   end
 
-    # before(:context) { subject.top_up(OysterCard::MAXIMUM_BALANCE) }
-
       describe "card with maximum balance" do
 
       it "raises error if balance limit is reached" do
@@ -98,9 +96,8 @@ describe OysterCard do
       subject.top_up(10)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journey_history).to include journey
+      expect(subject.journey_history).to include(Journey)
     end
 
   end
-
 end
