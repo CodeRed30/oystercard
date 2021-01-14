@@ -1,4 +1,5 @@
 require_relative 'station'
+require_relative 'journey'
 class OysterCard
 
   MAXIMUM_BALANCE = 90
@@ -19,7 +20,7 @@ class OysterCard
     raise "Insufficient funds" if insuffient_funds?
     start_journey
     set_in_use
-    entered_at(station)
+    @journey.entered_at(station)
   end
 
   def touch_out(station)
@@ -55,19 +56,20 @@ class OysterCard
   end
 
   def start_journey
-    @journey = Hash.new
+    @journey = Journey.new
   end
 
-  def entered_at(station)
-    @journey[:entry_station] = station
-  end
+  # def entered_at(station)
+  #   @journey.route[:entry_station] = station
+  # end
 
   def exited_at(station)
-    @journey[:exit_station] = station
+    @journey.route[:exit_station] = station
   end
 
   def complete_journey
     @journey_history << @journey
+    @journey = nil
   end
 
   def set_in_use
