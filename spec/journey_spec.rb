@@ -1,12 +1,13 @@
 require 'journey'
 
 describe Journey do
-  let(:card) {double :oystercard, :touch_in => entry_station}
-  let(:entry_station) {double :station}
+  let(:card) { double :card }
+  let(:entry_station) { double :station}
 
-  # it "remembers the entry station" do
-  #   card.touch_in(entry_station)
-  #   expect(subject.route).to have_attributes(:entry_station => entry_station)
-  # end
+  it "remembers the entry station" do
+    allow(card).to receive(:touch_in(entry_station)).and_return(entry_station: entry_station)
+    card.touch_in(entry_station)
+    expect(subject.route).to have_attributes(entry_station: entry_station)
+  end
 
 end
